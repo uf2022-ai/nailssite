@@ -365,7 +365,82 @@
             .mobile-menu-btn { display: block; }
             .hero h2 { font-size: 36px; }
         }
-    </style>
+    
+/* --- FAB and Slide Panels (mobile) --- */
+.fab {
+  position: fixed;
+  bottom: 22px;
+  right: 18px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,var(--primary),var(--primary-dark));
+  color: #fff;
+  display: none; /* shown on mobile */
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(198,72,122,0.2);
+  z-index: 1501;
+  border: none;
+  cursor: pointer;
+  transition: transform .18s ease;
+}
+.fab:active{ transform: scale(.98); }
+
+.bottom-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: -100%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.98), var(--bg-light));
+  box-shadow: 0 -10px 30px rgba(120,80,100,0.08);
+  border-radius: 16px 16px 0 0;
+  max-height: 66%;
+  overflow: auto;
+  transition: bottom .36s cubic-bezier(.2,.9,.3,1);
+  z-index: 1500;
+  padding: 18px 20px;
+}
+.bottom-sheet.open { bottom: 0; }
+.sheet-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.sheet-handle{ width:42px; height:5px; background:#eee; border-radius:4px; margin:0 auto 8px; }
+.sheet-menu { display:flex; flex-direction:column; gap:12px; }
+.sheet-menu a{ display:flex; gap:12px; align-items:center; text-decoration:none; color:var(--text-main); padding:10px; border-radius:10px; transition:var(--transition);}
+.sheet-menu a:hover{ background:rgba(214,112,157,0.06); color:var(--primary); }
+
+.slide-panel {
+  position: fixed;
+  right: -360px;
+  top: 0;
+  width: 320px;
+  height: 100%;
+  background: linear-gradient(180deg,#ffffff, #fffafc);
+  box-shadow: -18px 0 40px rgba(150,80,110,0.08);
+  transition: right .36s cubic-bezier(.2,.9,.3,1);
+  z-index: 1502;
+  padding: 22px;
+  border-left: 1px solid rgba(214,112,157,0.04);
+}
+.slide-panel.open { right: 0; }
+.panel-close { background:none; border:none; font-size:18px; color:var(--text-muted); cursor:pointer; }
+.panel-title { font-size:18px; margin-bottom:8px; color:var(--primary); }
+.quick-btn { display:inline-block; background:var(--primary); color:#fff; padding:10px 14px; border-radius:10px; text-decoration:none; box-shadow: 0 8px 20px rgba(198,72,122,0.12); }
+
+/* Subtle animated accents */
+.header-content .logo i { transform-origin:center; transition: transform .36s ease; }
+.header-content:hover .logo i { transform: rotate(-8deg) scale(1.02); }
+
+/* Mobile visibility */
+@media (max-width: 880px){
+  nav ul { display:none; }
+  .mobile-menu-btn { display:block; }
+  .fab { display:flex; }
+}
+
+@media (min-width: 880px){
+  .slide-panel, .bottom-sheet, .fab { display:none !important; }
+}
+</style>
 </head>
 <body>
 
@@ -584,6 +659,111 @@
             alert('Заявка принята! Мы свяжемся с вами в течение 15 минут.');
             e.target.reset();
         });
+    </script>
+
+    <!-- Floating action button for mobile: quick menu -->
+    <button class="fab" id="fabMenu" aria-label="Меню">
+        <i class="fas fa-ellipsis-v"></i>
+    </button>
+
+    <!-- Bottom sheet opened by FAB on mobile -->
+    <div class="bottom-sheet" id="bottomSheet" aria-hidden="true">
+        <div class="sheet-header">
+            <div style="flex:1"></div>
+            <button class="panel-close" id="closeSheet" aria-label="Закрыть">✕</button>
+        </div>
+        <div class="sheet-handle"></div>
+        <div class="sheet-menu">
+            <a href="#contact"><i class="fas fa-calendar-check" style="color:var(--primary)"></i> Записаться</a>
+            <a href="#services"><i class="fas fa-concierge-bell" style="color:var(--primary)"></i> Услуги и цены</a>
+            <a href="#gallery"><i class="fas fa-image" style="color:var(--primary)"></i> Галерея работ</a>
+            <a href="#faq"><i class="fas fa-info-circle" style="color:var(--primary)"></i> О нас</a>
+            <a href="#contact"><i class="fas fa-phone" style="color:var(--primary)"></i> Позвонить</a>
+        </div>
+    </div>
+
+    <!-- Slide-out booking panel -->
+    <aside class="slide-panel" id="bookingPanel" aria-hidden="true">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+                <div class="panel-title">Быстрая запись</div>
+                <div style="font-size:13px; color:var(--text-muted)">Выберите дату и мастер свяжется с вами</div>
+            </div>
+            <button class="panel-close" id="closeBooking" aria-label="Закрыть">✕</button>
+        </div>
+        <form id="quickBooking" style="margin-top:18px; display:flex; flex-direction:column; gap:10px;">
+            <input type="text" name="name" placeholder="Ваше имя" style="padding:10px; border-radius:10px; border:1px solid #f0e6ea;">
+            <input type="tel" name="phone" placeholder="Телефон" style="padding:10px; border-radius:10px; border:1px solid #f0e6ea;">
+            <input type="date" name="date" style="padding:10px; border-radius:10px; border:1px solid #f0e6ea;">
+            <select name="service" style="padding:10px; border-radius:10px; border:1px solid #f0e6ea;">
+                <option>Маникюр</option>
+                <option>Педикюр</option>
+                <option>Дизайн</option>
+                <option>Снятие гель-лака</option>
+            </select>
+            <button type="submit" class="quick-btn">Отправить заявку</button>
+        </form>
+    </aside>
+
+    <!-- overlay for panels -->
+    <div id="panelOverlay" style="position:fixed; inset:0; background:rgba(0,0,0,0.25); opacity:0; visibility:hidden; transition:opacity .28s; z-index:1500"></div>
+
+    <script>
+        // FAB -> open bottom sheet
+        (function(){
+            const fab = document.getElementById('fabMenu');
+            const sheet = document.getElementById('bottomSheet');
+            const closeSheet = document.getElementById('closeSheet');
+            const bookingPanel = document.getElementById('bookingPanel');
+            const closeBooking = document.getElementById('closeBooking');
+            const overlay = document.getElementById('panelOverlay');
+
+            function showOverlay(){ overlay.style.visibility='visible'; overlay.style.opacity='1'; }
+            function hideOverlay(){ overlay.style.opacity='0'; setTimeout(()=>overlay.style.visibility='hidden',300); }
+
+            fab && fab.addEventListener('click', ()=>{
+                sheet.classList.add('open');
+                sheet.setAttribute('aria-hidden','false');
+                showOverlay();
+            });
+            closeSheet && closeSheet.addEventListener('click', ()=>{ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true'); hideOverlay(); });
+
+            // clicking menu links inside sheet that open booking
+            sheet && sheet.addEventListener('click', (e)=>{
+                const a = e.target.closest('a');
+                if(!a) return;
+                if(a.getAttribute('href') === '#contact'){
+                    // open booking panel instead
+                    sheet.classList.remove('open');
+                    bookingPanel.classList.add('open');
+                    bookingPanel.setAttribute('aria-hidden','false');
+                    showOverlay();
+                    e.preventDefault();
+                }
+            });
+
+            closeBooking && closeBooking.addEventListener('click', ()=>{ bookingPanel.classList.remove('open'); bookingPanel.setAttribute('aria-hidden','true'); hideOverlay(); });
+            overlay && overlay.addEventListener('click', ()=>{ sheet.classList.remove('open'); bookingPanel.classList.remove('open'); hideOverlay(); });
+
+            // intercept all "Записаться сейчас" links to open booking panel on mobile
+            document.querySelectorAll('a.btn, a[href="#contact"]').forEach(el=>{
+                el.addEventListener('click', function(e){
+                    if(window.innerWidth <= 880){
+                        e.preventDefault();
+                        bookingPanel.classList.add('open'); bookingPanel.setAttribute('aria-hidden','false'); showOverlay();
+                        window.scrollTo({top:0, behavior:'smooth'});
+                    }
+                });
+            });
+
+            // optionally prevent body scroll when open
+            const observer = new MutationObserver(()=>{
+                const open = sheet.classList.contains('open') || bookingPanel.classList.contains('open');
+                document.body.style.overflow = open ? 'hidden' : '';
+            });
+            observer.observe(document.body, { attributes:true, childList:true, subtree:true });
+
+        })();
     </script>
 </body>
 </html>
