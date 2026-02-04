@@ -1,0 +1,644 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Nails - Маникюрный салон</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: #333;
+            line-height: 1.6;
+            background-color: #fff9fb;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 15px rgba(214, 112, 157, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            color: #d6709d;
+            font-size: 28px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: #d6709d;
+            font-weight: 600;
+        }
+
+        .logo span {
+            color: #f4a6c6;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 17px;
+        }
+
+        nav ul li a:hover {
+            color: #d6709d;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #d6709d;
+            cursor: pointer;
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(rgba(255, 249, 251, 0.9), rgba(255, 249, 251, 0.9)), url('https://images.unsplash.com/photo-1604654894610-df63bc536371?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 48px;
+            color: #d6709d;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #555;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #d6709d;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #c05a87;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(214, 112, 157, 0.3);
+        }
+
+        /* Services section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: #d6709d;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #777;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services {
+            padding: 80px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+.service-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(214, 112, 157, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .service-img {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.05);
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            color: #d6709d;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .service-content p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .service-price {
+            color: #d6709d;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        /* Gallery section */
+        .gallery {
+            padding: 80px 0;
+            background-color: #fff0f5;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            height: 250px;
+            position: relative;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Contact section */
+        .contact {
+            padding: 80px 0;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+
+        .contact-info h3 {
+            color: #d6709d;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-item i {
+            width: 40px;
+            height: 40px;
+            background-color: #fce4ec;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d6709d;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #e0c4d1;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #fce4ec;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            color: #d6709d;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #d6709d;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: #c05a87;
+            transform: translateY(-5px);
+        }
+
+.copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #e0c4d1;
+            color: #777;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px 0;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                padding: 20px 0;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+                text-align: center;
+                padding: 15px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h2 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-spa"></i>
+                    <h1>Luxe<span>Nails</span></h1>
+                </div>
+
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <nav>
+                    <ul id="mainMenu">
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#services">Услуги</a></li>
+                        <li><a href="#gallery">Галерея</a></li>
+                        <li><a href="#contact">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Искусство маникюра</h2>
+            <p>Добро пожаловать в LuxeNails - место, где рождается красота ваших рук. Наши мастера создают идеальный маникюр с любовью к деталям и вниманием к вашим пожеланиям.</p>
+            <a href="#contact" class="btn">Записаться онлайн</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши услуги</h2>
+                <p>Мы предлагаем полный спектр услуг по уходу за руками и ногтями с использованием качественных материалов и современных техник.</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://i.pinimg.com/736x/55/b2/6f/55b26f1063a731f165a56d05bab9e5f4.jpg" alt="Классический маникюр">
+                    </div>
+                    <div class="service-content">
+                        <h3>Классический маникюр</h3>
+                        <p>Аккуратная обработка ногтей и кутикулы, придание формы, полировка и покрытие лаком.</p>
+                        <div class="service-price">от 1200 ₽</div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://i.pinimg.com/736x/ed/41/13/ed4113fbadfbfece140bd8b542cc99a3.jpg" alt="Гель-лак">
+                    </div>
+
+<div class="service-content">
+                        <h3>Покрытие гель-лаком</h3>
+                        <p>Стойкое покрытие, которое держится до 3-х недель без сколов и трещин.</p>
+                        <div class="service-price">от 1800 ₽</div>
+                    </div>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-img">
+                        <img src="https://i.pinimg.com/originals/eb/4e/83/eb4e83922287e6ec34043dedd3d409f3.jpg" alt="Наращивание ногтей">
+                    </div>
+                    <div class="service-content">
+                        <h3>Наращивание ногтей</h3>
+                        <p>Создание идеальной длины и формы с помощью геля или акрила.</p>
+                        <div class="service-price">от 2500 ₽</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="section-title">
+                <h2>Наши работы</h2>
+                <p>Взгляните на примеры работ наших мастеров. Каждый маникюр - это произведение искусства.</p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1607779096098-8a4d91b8dc8e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Маникюр 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Маникюр 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1633205719979-3d2b96556a2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w-870&q=80" alt="Маникюр 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1574098520113-a5d6a0cec7e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="Маникюр 4">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Контакты</h2>
+                <p>Свяжитесь с нами, чтобы записаться на процедуру или задать вопросы. Мы всегда рады вам!</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Наша информация</h3>
+
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Адрес</h4>
+                            <p>ул. Красоты, 15, Москва</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Телефон</h4>
+                            <p>+7 (999) 123-45-67</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+
+<h4>Часы работы</h4>
+                            <p>Пн-Пт: 9:00 - 21:00<br>Сб-Вс: 10:00 - 20:00</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@luxenails.ru</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Онлайн запись</h3>
+                    <form id="appointmentForm">
+                        <input type="text" placeholder="Ваше имя" required>
+                        <input type="tel" placeholder="Ваш телефон" required>
+                        <input type="email" placeholder="Ваш email">
+                        <textarea placeholder="Ваши пожелания или комментарии"></textarea>
+                        <button type="submit" class="btn">Отправить заявку</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>LuxeNails</h3>
+                    <p>Салон маникюра премиум-класса с индивидуальным подходом к каждому клиенту.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Быстрые ссылки</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="#home" style="text-decoration: none; color: #555; display: block; margin-bottom: 8px;">Главная</a></li>
+                        <li><a href="#services" style="text-decoration: none; color: #555; display: block; margin-bottom: 8px;">Услуги</a></li>
+                        <li><a href="#gallery" style="text-decoration: none; color: #555; display: block; margin-bottom: 8px;">Галерея</a></li>
+                        <li><a href="#contact" style="text-decoration: none; color: #555; display: block; margin-bottom: 8px;">Контакты</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Подписаться на новости</h3>
+                    <p>Узнавайте первыми об акциях и новых услугах.</p>
+                    <form style="display: flex; margin-top: 15px;">
+                        <input type="email" placeholder="Ваш email" style="flex: 1; padding: 10px; border: 1px solid #e0c4d1; border-radius: 5px 0 0 5px;">
+                        <button type="submit" style="background-color: #d6709d; color: white; border: none; padding: 0 15px; border-radius: 0 5px 5px 0; cursor: pointer;">OK</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2023 LuxeNails. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Мобильное меню
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainMenu = document.getElementById('mainMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainMenu.classList.contains('active')
+
+? '<i class="fas fa-times"></i>'
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Плавная прокрутка
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+
+                // Закрыть меню на мобильных устройствах
+                if (mainMenu.classList.contains('active')) {
+                    mainMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+
+        // Обработка формы
+        const appointmentForm = document.getElementById('appointmentForm');
+        appointmentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Спасибо за заявку! Мы свяжемся с вами в ближайшее время для подтверждения записи.');
+            appointmentForm.reset();
+        });
+    </script>
+</body>
+</html>
